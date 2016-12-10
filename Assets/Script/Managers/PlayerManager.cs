@@ -2,7 +2,8 @@
 using System.Collections;
 
 public class PlayerManager : MonoBehaviour {
-
+	public LayerMask VictoryMask;
+	public LayerMask VoidMask;
 	#region Singleton
 	public static PlayerManager m_instance;
 	void Awake(){
@@ -25,6 +26,12 @@ public class PlayerManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (Physics2D.OverlapCircle (this.transform.position, 0.3f, VictoryMask)) {
+			GameStateManager.setGameState (GameState.GameOver);
+		}
+		if (Physics2D.OverlapCircle (this.transform.position, 0.3f, VoidMask)) {
+			GameStateManager.setGameState (GameState.GameOver);
+		}
 	
 	}
 
@@ -32,21 +39,26 @@ public class PlayerManager : MonoBehaviour {
 		Debug.Log ("PLAYER SEE THE NEW STATE : " + newState);
 	}
 
+
+
 	#region Intéraction
 	public static void UP(){
 		Debug.Log("UP ! ");
+		PlayerManager.m_instance.transform.position += new Vector3 (0, 0.45f);
 	}
 
 	public static void DOWN(){
 		Debug.Log("DOWN ! ");
+		PlayerManager.m_instance.transform.position += new Vector3 (0, -0.45f);
 	}
 
 	public static void LEFT(){
 		Debug.Log("LEFT ! ");
+		PlayerManager.m_instance.transform.position += new Vector3 (-0.45f,0);
 	}
 
 	public static void RIGHT(){
-		Debug.Log("RIGHT ! ");
+		PlayerManager.m_instance.transform.position += new Vector3 (0.45f, 0);
 	}
 	#endregion Intéraction
 

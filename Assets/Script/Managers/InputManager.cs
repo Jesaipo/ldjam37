@@ -25,7 +25,7 @@ public class InputManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		switch (GameStateManager.getGameState ()) {
+		/*switch (GameStateManager.getGameState ()) {
 		case GameState.Menu:
 			UpdateMenuState();
 			break;
@@ -38,7 +38,8 @@ public class InputManager : MonoBehaviour {
 		case GameState.GameOver:
 			UpdateGameOverState();
 			break;
-		}
+		}*/
+		UpdatePlayingState();
 	}
 
 	void UpdateMenuState(){
@@ -69,6 +70,24 @@ public class InputManager : MonoBehaviour {
 		if(Input.GetKeyDown("d")){
 			PlayerManager.RIGHT();
 		}
+
+
+		if(Input.GetKeyDown(KeyCode.UpArrow)){
+			BlockManager.UP();
+		}
+
+		if(Input.GetKeyDown(KeyCode.DownArrow)){
+			BlockManager.DOWN();
+		}
+
+		if(Input.GetKeyDown(KeyCode.LeftArrow)){
+			BlockManager.LEFT();
+		}
+
+		if(Input.GetKeyDown(KeyCode.RightArrow)){
+			BlockManager.RIGHT();
+		}
+
 	}
 
 	void UpdatePauseState(){
