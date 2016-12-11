@@ -37,9 +37,44 @@ public class MapManager : MonoBehaviour {
 	public GameObject CurrentBonus;
 	public int RangeDot3 = 2;
 
+
+	public List<GameObject> LevelBlock = null;
+	public GameObject startBlock;
+	public GameObject endBlock;
 	float delta = 0.2f;
 	// Use this for initialization
-	void Start () {
+
+	public bool ChangeLevelTrigger = false;
+	bool generateNewLevel = false;
+
+	public List<GameObject> level;
+	public int levelID = 0;
+
+	public void ChangeLevel(){
+		if (levelID == level.Count) {
+			GameStateManager.setGameState (GameState.GameOver);
+			Application.LoadLevelAsync ("GameOverWinningScene");
+		}
+		startBlock = endBlock;
+		startBlock.GetComponent<Rigidbody2D> ().isKinematic = false;
+		startBlock.GetComponent<MasterBlock> ().enabled = true;
+		foreach (GameObject go in LevelBlock) {
+			if(go.GetComponent<MasterBlock> ())
+				go.GetComponent<MasterBlock> ().FinalFall ();
+		}
+		generateNewLevel = true;
+		LevelBlock.Clear ();
+		Init ();
+
+
+	}
+
+	void Start(){
+		Init ();
+	}
+	void Init(){
+		LevelBlock = new List<GameObject> ();
+		LevelBlock.Add (startBlock);
 		GroundDot = new List<Vector2>();
 		usedDot = new List<Vector2>();
 		allDot =  new List<Vector2>();
@@ -87,6 +122,26 @@ public class MapManager : MonoBehaviour {
 			CurrentBonus.transform.position = newPosition;
 			CurrentBonus.SetActive (true);
 
+		}
+
+		if (ChangeLevelTrigger) {
+			ChangeLevelTrigger = false;
+			ChangeLevel ();
+		}
+
+		if (generateNewLevel && startBlock.GetComponent<Rigidbody2D> ().isKinematic) {
+			generateNewLevel = false;
+			var instance = Instantiate (level [levelID]);
+			levelID++;
+			instance.transform.SetParent (this.transform);
+
+			foreach (Transform tr in instance.GetComponentsInChildren<Transform>()) {
+				if (!tr.gameObject.GetComponent<EndBlock> ()) {
+					LevelBlock.Add (tr.gameObject);
+				} else {
+					endBlock = tr.gameObject;
+				}
+			}
 		}
 	}
 

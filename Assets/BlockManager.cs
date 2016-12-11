@@ -10,7 +10,7 @@ public class BlockManager : MonoBehaviour {
 	public GameObject nextGameObject= null;
 	// Use this for initialization
 	void Start () {
-	
+		 GENERATE = true;
 	}
 	
 	// Update is called once per frame
@@ -25,10 +25,13 @@ public class BlockManager : MonoBehaviour {
 				Application.LoadLevelAsync ("GameOverScene");
 			}
 			GENERATE = false;
+			if(currentMasterBlock)
+				MapManager.m_instance.LevelBlock.Add (currentMasterBlock.gameObject);
 			MapManager.m_instance.refreshUsedDot ();
 			var instance = Instantiate (nextGameObject);
 			instance.transform.position = this.transform.position;
 			currentMasterBlock = instance.GetComponent<MasterBlock>();
+
 			genereNewGO ();
 
 		}

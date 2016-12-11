@@ -56,19 +56,19 @@ public class InputManager : MonoBehaviour {
 		}
 
 		if(Input.GetKeyDown("z") || Input.GetKeyDown("w")){
-			PlayerManager.UP();
+			BlockManager.UP();
 		}
 		
 		if(Input.GetKeyDown("q") || Input.GetKeyDown("a")){
-			PlayerManager.LEFT();
+			BlockManager.LEFT();
 		}
 		
 		if(Input.GetKeyDown("s")){
-			PlayerManager.DOWN ();
+			BlockManager.DOWN();
 		}
 		
 		if(Input.GetKeyDown("d")){
-			PlayerManager.RIGHT();
+			BlockManager.RIGHT();
 		}
 
 		if(Input.GetKeyDown(KeyCode.Mouse0)){

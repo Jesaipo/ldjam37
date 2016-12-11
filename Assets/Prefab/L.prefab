@@ -359,7 +359,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013034508214}
-  m_LocalRotation: {x: 0, y: 0, z: -1, w: 0.000000970942}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: -0.0000035403355}
   m_LocalPosition: {x: 0, y: 12.35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1032,6 +1032,7 @@ MonoBehaviour:
   groundedMask:
     serializedVersion: 2
     m_Bits: 9216
+  finalFall: 0
 --- !u!114 &114000011203171274
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1046,6 +1047,8 @@ MonoBehaviour:
   groundedMask:
     serializedVersion: 2
     m_Bits: 9216
+  bottomthreshold: -23.5
+  finalFall: 0
 --- !u!114 &114000011257677220
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1060,6 +1063,7 @@ MonoBehaviour:
   groundedMask:
     serializedVersion: 2
     m_Bits: 9216
+  finalFall: 0
 --- !u!114 &114000011528670952
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1085,6 +1089,7 @@ MonoBehaviour:
   groundedMask:
     serializedVersion: 2
     m_Bits: 9216
+  finalFall: 0
 --- !u!114 &114000011632708000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1121,6 +1126,7 @@ MonoBehaviour:
   groundedMask:
     serializedVersion: 2
     m_Bits: 9216
+  finalFall: 0
 --- !u!114 &114000012180610322
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1164,6 +1170,7 @@ MonoBehaviour:
   groundedMask:
     serializedVersion: 2
     m_Bits: 9216
+  finalFall: 0
 --- !u!114 &114000012298792604
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1224,6 +1231,7 @@ MonoBehaviour:
   groundedMask:
     serializedVersion: 2
     m_Bits: 9216
+  finalFall: 0
 --- !u!114 &114000013755718314
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1238,6 +1246,7 @@ MonoBehaviour:
   groundedMask:
     serializedVersion: 2
     m_Bits: 9216
+  finalFall: 0
 --- !u!114 &114000014011502770
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1252,6 +1261,7 @@ MonoBehaviour:
   groundedMask:
     serializedVersion: 2
     m_Bits: 9216
+  finalFall: 0
 --- !u!114 &114000014058530840
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1294,6 +1304,7 @@ MonoBehaviour:
   groundedMask:
     serializedVersion: 2
     m_Bits: 9216
+  finalFall: 0
 --- !u!114 &114000014280762990
 MonoBehaviour:
   m_ObjectHideFlags: 1

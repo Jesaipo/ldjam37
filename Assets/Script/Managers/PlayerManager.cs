@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class PlayerManager : MonoBehaviour {
 	public bombeCOunter bombeCounter;
 	public LayerMask VictoryMask;
+	public LayerMask NextLevelMask;
 	public LayerMask BonusMask;
 	public LayerMask VoidMask;
 	public LayerMask NoGoLayer;
@@ -49,6 +50,13 @@ public class PlayerManager : MonoBehaviour {
 			GameStateManager.setGameState (GameState.GameOver);
 			Application.LoadLevelAsync ("GameOverScene");
 		}
+
+		var nextLevelCollider = Physics2D.OverlapCircle (this.transform.position, 0.3f,NextLevelMask);
+		if (nextLevelCollider) {
+			MapManager.m_instance.ChangeLevel ();
+			nextLevelCollider.gameObject.SetActive (false);
+		}
+
 		var bombCollider = Physics2D.OverlapCircle (this.transform.position, 0.3f, BonusMask);
 		if (bombCollider) {
 			bombCollider.gameObject.SetActive (false);
