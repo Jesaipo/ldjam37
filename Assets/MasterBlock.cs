@@ -44,8 +44,8 @@ public class MasterBlock : MonoBehaviour {
 
 		if (touchGroundedRight.Length < 2 && touchGroundedLeft.Length < 2 && touchGroundedCenter.Length < 2) {
 			this.transform.position += new Vector3 (-3f, 0, 0);
-			if (this.transform.position.x < -12f)
-				this.transform.position = new Vector3 (-12f, this.transform.position.y, this.transform.position.z);
+			if (this.transform.position.x < -9f)
+				this.transform.position = new Vector3 (-9f, this.transform.position.y, this.transform.position.z);
 		}
 	}
 	public void Right(){
@@ -56,8 +56,8 @@ public class MasterBlock : MonoBehaviour {
 
 		if (touchGroundedRight.Length < 2 && touchGroundedLeft.Length < 2 && touchGroundedCenter.Length < 2) {
 			this.transform.position += new Vector3 (3f, 0, 0);
-			if (this.transform.position.x > 12f)
-				this.transform.position = new Vector3 (12f, this.transform.position.y, this.transform.position.z);
+			if (this.transform.position.x > 9f)
+				this.transform.position = new Vector3 (9f, this.transform.position.y, this.transform.position.z);
 		}
 	}
 	public void TurnRight(){
