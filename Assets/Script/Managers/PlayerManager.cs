@@ -65,8 +65,12 @@ public class PlayerManager : MonoBehaviour {
 		}
 
 		if (dotPath.Count > 0) {
-			this.transform.position = dotPath [0];
-			dotPath.RemoveAt (0);
+			Vector2 direction = dotPath [0] - new Vector2(this.transform.position.x,this.transform.position.y) ;
+			direction.Normalize ();
+			this.transform.position = this.transform.position + new Vector3(direction.x,direction.y);
+			if(this.transform.position.x >  dotPath [0].x -0.2f && this.transform.position.x <  dotPath [0].x +0.2f 
+				&& this.transform.position.y >  dotPath [0].y -0.2f && this.transform.position.y <  dotPath [0].y +0.2f)
+				dotPath.RemoveAt (0);
 			Collider2D hit = Physics2D.OverlapCircle (transform.position, 0.05f, GroundLayer);
 			if (hit) {
 				followGO = hit.gameObject;

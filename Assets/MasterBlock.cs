@@ -9,7 +9,7 @@ public class MasterBlock : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		rb = this.GetComponent<Rigidbody2D> ();
-		rb.AddForce (new Vector2(0,-100f), ForceMode2D.Force);
+		//rb.AddForce (new Vector2(0,-100f), ForceMode2D.Force);
 	}
 
 
