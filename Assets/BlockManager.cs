@@ -57,6 +57,11 @@ public class BlockManager : MonoBehaviour {
 			currentMasterBlock.Fall ();
 	}
 
+	public static void DOWNRelease(){
+		if (currentMasterBlock)
+			currentMasterBlock.FallRelease ();
+	}
+
 	public static void LEFT(){
 		if (currentMasterBlock)
 			currentMasterBlock.Left ();

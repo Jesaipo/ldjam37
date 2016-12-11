@@ -66,6 +66,9 @@ public class InputManager : MonoBehaviour {
 		if(Input.GetKeyDown("s")){
 			BlockManager.DOWN();
 		}
+		if(Input.GetKeyUp("s")){
+			BlockManager.DOWNRelease();
+		}
 		
 		if(Input.GetKeyDown("d")){
 			BlockManager.RIGHT();
@@ -86,6 +89,9 @@ public class InputManager : MonoBehaviour {
 
 		if(Input.GetKeyDown(KeyCode.DownArrow)){
 			BlockManager.DOWN();
+		}
+		if(Input.GetKeyUp(KeyCode.DownArrow)){
+			BlockManager.DOWNRelease();
 		}
 
 		if(Input.GetKeyDown(KeyCode.LeftArrow)){

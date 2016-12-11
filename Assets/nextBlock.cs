@@ -20,7 +20,7 @@ public class nextBlock : MonoBehaviour {
 		}
 		currentNext = Instantiate (next);
 		currentNext.transform.position = this.transform.position;
-		currentNext.GetComponent<Rigidbody2D> ().gravityScale = 0;
+		currentNext.GetComponent<Rigidbody2D> ().isKinematic = true;
 		foreach (SpriteRenderer sr in currentNext.GetComponentsInChildren<SpriteRenderer>()) {
 			sr.sortingOrder += 1000;
 		}
