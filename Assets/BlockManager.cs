@@ -4,7 +4,7 @@ using System.Collections;
 public class BlockManager : MonoBehaviour {
 
 	public GameObject[] blockList;
-	public static Block currentBlock= null;
+	public static MasterBlock currentMasterBlock= null;
 	public static bool GENERATE = true;
 	// Use this for initialization
 	void Start () {
@@ -13,34 +13,39 @@ public class BlockManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (GENERATE || currentBlock && currentBlock.GetComponent<Rigidbody2D>().isKinematic) {
+		if (GENERATE || currentMasterBlock && currentMasterBlock.GetComponent<Rigidbody2D>().isKinematic) {
 			GENERATE = false;
-			var Block = Instantiate (blockList [0]);
-			Block.transform.position = this.transform.position;
-			currentBlock = Block.GetComponent<Block>();
+			MapManager.m_instance.refreshUsedDot ();
+			int index = Random.Range (0, blockList.Length);
+			int rotate = Random.Range (0, 3);
+			var instance = Instantiate (blockList [index]);
+			instance.transform.position = this.transform.position;
+			instance.transform.Rotate (0, 0, rotate * 90f);
+			currentMasterBlock = instance.GetComponent<MasterBlock>();
+
 		}
 	
 	}
 
 	#region Intéraction
 	public static void UP(){
-		if (currentBlock)
-		currentBlock.TurnRight ();
+		if (currentMasterBlock)
+			currentMasterBlock.TurnRight ();
 	}
 
 	public static void DOWN(){
-		if (currentBlock)
-		currentBlock.Fall ();
+		if (currentMasterBlock)
+			currentMasterBlock.Fall ();
 	}
 
 	public static void LEFT(){
-		if (currentBlock)
-		currentBlock.Left ();
+		if (currentMasterBlock)
+			currentMasterBlock.Left ();
 	}
 
 	public static void RIGHT(){
-		if (currentBlock)
-		currentBlock.Right ();
+		if (currentMasterBlock)
+			currentMasterBlock.Right ();
 	}
 		
 	#endregion Intéraction

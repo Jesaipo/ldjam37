@@ -11,40 +11,23 @@ public class Block : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		Collider2D[] touchGroundedRight =  Physics2D.OverlapCircleAll (this.transform.position - new Vector3 (0.9f, 0.9f + 0.45f), 0.05f, groundedMask);
-		Collider2D[] touchGroundedLeft =  Physics2D.OverlapCircleAll (this.transform.position - new Vector3 (-0.9f, 0.9f + 0.45f), 0.05f, groundedMask);
+		Collider2D[] touchGrounded =  Physics2D.OverlapCircleAll (this.transform.position - new Vector3 (0, 0.5f), 0.05f, groundedMask);
 		bool grounded = false;
-		if (touchGroundedRight.Length > 1 || touchGroundedLeft.Length > 1) {
+		if (touchGrounded.Length > 1) {
+			foreach (Collider2D col in touchGrounded) {
+				if (this.transform.position != col.gameObject.transform.position) {
+					this.transform.position = col.gameObject.transform.position+ new Vector3(0,1f);
+					break;
+				}
+			}
 			grounded = true;
 		}
-		if (this.transform.position.y < -7.2f) {
-			this.transform.position = new Vector3 (this.transform.position.x, -7.2f, this.transform.position.z);
+		if (this.transform.position.y <= -24.5f) {
+			this.transform.position = new Vector3 (this.transform.position.x,  -24.5f, this.transform.position.z);
 			grounded = true;
 		}
-			if (grounded && rb.isKinematic == false) {
-			//BlockManager.GENERATE = true;
-			rb.isKinematic = true;
-		}
+		if(rb)
+		rb.isKinematic = grounded;
 
-	}
-
-	public void Left(){
-		Debug.Log ("LEFT");
-		this.transform.position += new Vector3 (-0.9f, 0, 0);
-		if (this.transform.position.x < -13.5f)
-			this.transform.position = new Vector3 (-13.5f, this.transform.position.y, this.transform.position.z);
-	}
-	public void Right(){
-		Debug.Log ("Right");
-		this.transform.position += new Vector3 (0.9f, 0, 0);
-		if (this.transform.position.x > 13.5f)
-			this.transform.position = new Vector3 (13.5f, this.transform.position.y, this.transform.position.z);
-	}
-	public void TurnRight(){
-		Debug.Log ("RTurnight");
-		this.transform.Rotate(0,0,90);
-	}
-	public void Fall(){
-		rb.AddForce (new Vector2(0, -500));
 	}
 }

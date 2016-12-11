@@ -1,9 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerManager : MonoBehaviour {
 	public LayerMask VictoryMask;
 	public LayerMask VoidMask;
+	public LayerMask NoGoLayer;
+	public GameObject Bombe;
+	public Vector3 offsetBomb;
+	public bool askForBombe = false;
+	public int NBBomb = 0;
+
+	public List<Vector2> dotPath;
+
 	#region Singleton
 	public static PlayerManager m_instance;
 	void Awake(){
@@ -19,6 +28,8 @@ public class PlayerManager : MonoBehaviour {
 	}
 	#endregion Singleton
 
+
+
 	// Use this for initialization
 	void Start () {
 		GameStateManager.onChangeStateEvent += handleChangeGameState;
@@ -26,13 +37,18 @@ public class PlayerManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Physics2D.OverlapCircle (this.transform.position, 0.3f, VictoryMask)) {
-			GameStateManager.setGameState (GameState.GameOver);
+
+		var bombCollider = Physics2D.OverlapCircle (this.transform.position, 0.3f, VictoryMask);
+		if (bombCollider) {
+			bombCollider.gameObject.SetActive (false);
+			//RESPAWN BOMB
+			NBBomb += 3;
 		}
-		if (Physics2D.OverlapCircle (this.transform.position, 0.3f, VoidMask)) {
-			GameStateManager.setGameState (GameState.GameOver);
+
+		if (dotPath.Count > 0) {
+			this.transform.position = dotPath [0];
+			dotPath.RemoveAt (0);
 		}
-	
 	}
 
 	void handleChangeGameState(GameState newState){
@@ -44,22 +60,89 @@ public class PlayerManager : MonoBehaviour {
 	#region Intéraction
 	public static void UP(){
 		Debug.Log("UP ! ");
-		PlayerManager.m_instance.transform.position += new Vector3 (0, 0.45f);
+		if (!Physics2D.OverlapCircle (m_instance.transform.position + new Vector3 (0, 0.6f), 0.05f, m_instance.NoGoLayer)) {
+			PlayerManager.m_instance.transform.position += new Vector3 (0, 0.5f);
+	}
 	}
 
 	public static void DOWN(){
 		Debug.Log("DOWN ! ");
-		PlayerManager.m_instance.transform.position += new Vector3 (0, -0.45f);
+		if (!Physics2D.OverlapCircle (m_instance.transform.position + new Vector3 (0, -0.6f), 0.05f, m_instance.NoGoLayer)) {
+			PlayerManager.m_instance.transform.position += new Vector3 (0, -0.5f);
+		}
 	}
 
 	public static void LEFT(){
 		Debug.Log("LEFT ! ");
-		PlayerManager.m_instance.transform.position += new Vector3 (-0.45f,0);
+		if (!Physics2D.OverlapCircle (m_instance.transform.position + new Vector3 (-0.6f, 0), 0.05f, m_instance.NoGoLayer)) {
+				PlayerManager.m_instance.transform.position += new Vector3 (-0.5f,0);
+		}
 	}
 
 	public static void RIGHT(){
-		PlayerManager.m_instance.transform.position += new Vector3 (0.45f, 0);
+		if (!Physics2D.OverlapCircle (m_instance.transform.position + new Vector3 (0.6f, 0), 0.05f, m_instance.NoGoLayer)) {
+				PlayerManager.m_instance.transform.position += new Vector3 (0.5f, 0);
+		} //TODO NOP animation
 	}
+
+	public static void ASKFORBOMBE(Vector3 mousePosition){
+		Vector3 center = CenterBlockFromMouse (mousePosition);
+		if (center.x > -900) {
+			var newBombe = Instantiate (m_instance.Bombe);
+			newBombe.transform.position = center;
+		} else {
+//NOP SOUND
+		}
+	}
+
+	public static Vector3 CenterBlockFromMouse(Vector3 mousePosition){
+		var position = Camera.main.ScreenToWorldPoint (mousePosition);
+		RaycastHit2D hit = Physics2D.Raycast (position, Vector2.zero);
+		Vector3 center = new Vector3(-1000,-1000,-1000);
+		if (hit) {
+			if (hit.collider.gameObject.layer == LayerMask.NameToLayer ("Block")) {
+				
+				center = hit.collider.gameObject.transform.position;
+			}
+			if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall") || hit.collider.gameObject.layer == LayerMask.NameToLayer("Ground")){
+				
+				Block[] blocks = hit.collider.gameObject.transform.parent.GetComponentsInChildren<Block>();
+
+				Vector3 max = new Vector3(-1000,-1000,-1000);
+				Vector3 min = new Vector3(1000,1000,1000);
+				foreach (Block b in blocks) {
+					Vector3 p = b.transform.position;
+					if (p.x >= max.x-0.2f && p.y >= max.y-0.2f)
+						max = p;
+					if (p.x <= min.x+0.2f && p.y <= min.y+0.2f)
+						min = p;
+				}
+
+				foreach (Block b in blocks) {
+					Vector3 p = b.transform.position;
+					if (p.x < max.x-0.5f && p.y < max.y-0.5f && p.x > min.x+0.5f && p.y > min.y +0.5f)
+						center = p;
+				}
+
+			}
+		}
+		return center;
+	}
+
+	public static void MOVEATPOSITION(Vector3 mousePosition){
+		Vector3 center = CenterBlockFromMouse (mousePosition);
+		if (center.x > -900) {
+			List<Vector2> tempdotPath = MapManager.m_instance.getDotBetween (m_instance.transform.position, center);
+			if (tempdotPath.Count > 0) {
+				m_instance.dotPath = tempdotPath;
+				return;
+			}
+		}
+
+		//NOP SOUND
+	}
+		
+
 	#endregion Intéraction
 
 	void OnDestroy(){

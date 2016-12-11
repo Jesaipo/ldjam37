@@ -71,6 +71,14 @@ public class InputManager : MonoBehaviour {
 			PlayerManager.RIGHT();
 		}
 
+		if(Input.GetKeyDown(KeyCode.Mouse0)){
+			PlayerManager.ASKFORBOMBE(Input.mousePosition);
+		}
+
+		if(Input.GetKeyDown(KeyCode.Mouse1)){
+			PlayerManager.MOVEATPOSITION(Input.mousePosition);
+		}
+
 
 		if(Input.GetKeyDown(KeyCode.UpArrow)){
 			BlockManager.UP();
