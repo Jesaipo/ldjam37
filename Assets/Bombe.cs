@@ -4,6 +4,7 @@ using System.Collections;
 public class Bombe : MonoBehaviour {
 	public LayerMask DestroyMask;
 	public float deflagrationRayon=1f;
+	public bool detonate = true;
 	// Use this for initialization
 	void Start () {
 		//Detonate ();
@@ -14,14 +15,24 @@ public class Bombe : MonoBehaviour {
 		//Detonate ();
 	}
 	void Detonate() {
-		
-		Collider2D[] touchGrounded =  Physics2D.OverlapCircleAll (this.transform.position, deflagrationRayon, DestroyMask);
-		Debug.Log ("DETON?ATE "+ touchGrounded.Length);
+		if(detonate){
+		detonate = false;
+		Collider2D[] touchGrounded = Physics2D.OverlapCircleAll (this.transform.position, deflagrationRayon, DestroyMask);
+		Debug.Log ("DETON?ATE " + touchGrounded.Length);
 		foreach (Collider2D col in touchGrounded) {
 			Destroy destroy = col.gameObject.GetComponent<Destroy> ();
 			if (destroy)
 				destroy.DestroyObject ();
-			}
-		this.gameObject.SetActive (false);
+		
+			DestroyPlayer destroyPlayer = col.gameObject.GetComponent<DestroyPlayer> ();
+			if (destroyPlayer)
+				destroyPlayer.DestroyObject ();
+
+
+		}
+			this.GetComponent<SpriteRenderer> ().enabled = false;
+			this.GetComponentInChildren<SpriteRenderer> ().enabled = false;
+	}
+		//this.gameObject.SetActive (false);
 	}
 }

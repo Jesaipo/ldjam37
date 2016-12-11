@@ -3,14 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class PlayerManager : MonoBehaviour {
+	public bombeCOunter bombeCounter;
 	public LayerMask VictoryMask;
+	public LayerMask BonusMask;
 	public LayerMask VoidMask;
 	public LayerMask NoGoLayer;
+	public LayerMask GroundLayer;
 	public GameObject Bombe;
 	public Vector3 offsetBomb;
 	public bool askForBombe = false;
 	public int NBBomb = 0;
-
+	public GameObject followGO;
 	public List<Vector2> dotPath;
 
 	#region Singleton
@@ -37,18 +40,32 @@ public class PlayerManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-		var bombCollider = Physics2D.OverlapCircle (this.transform.position, 0.3f, VictoryMask);
+		
+		if (followGO) {
+			this.transform.position = followGO.gameObject.transform.position;
+		}
+		var VictoryCollider = Physics2D.OverlapCircle (this.transform.position, 0.3f, VictoryMask);
+		if (VictoryCollider) {
+			GameStateManager.setGameState (GameState.GameOver);
+			Application.LoadLevelAsync ("GameOverScene");
+		}
+		var bombCollider = Physics2D.OverlapCircle (this.transform.position, 0.3f, BonusMask);
 		if (bombCollider) {
 			bombCollider.gameObject.SetActive (false);
-			//RESPAWN BOMB
 			NBBomb += 3;
+			bombeCounter.addBombes (NBBomb);
 		}
 
 		if (dotPath.Count > 0) {
 			this.transform.position = dotPath [0];
 			dotPath.RemoveAt (0);
+			Collider2D hit = Physics2D.OverlapCircle (transform.position, 0.05f, GroundLayer);
+			if (hit) {
+				followGO = hit.gameObject;
+			}
 		}
+
+
 	}
 
 	void handleChangeGameState(GameState newState){
@@ -88,8 +105,12 @@ public class PlayerManager : MonoBehaviour {
 	public static void ASKFORBOMBE(Vector3 mousePosition){
 		Vector3 center = CenterBlockFromMouse (mousePosition);
 		if (center.x > -900) {
-			var newBombe = Instantiate (m_instance.Bombe);
-			newBombe.transform.position = center;
+			if (m_instance.NBBomb > 0) {
+				var newBombe = Instantiate (m_instance.Bombe);
+				newBombe.transform.position = center;
+				m_instance.NBBomb--;
+				m_instance.bombeCounter.removeBombe (m_instance.NBBomb);
+			}
 		} else {
 //NOP SOUND
 		}

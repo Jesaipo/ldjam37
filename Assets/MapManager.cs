@@ -35,6 +35,7 @@ public class MapManager : MonoBehaviour {
 	public Transform TopLimit;
 
 	public GameObject CurrentBonus;
+	public int RangeDot3 = 2;
 
 	float delta = 0.2f;
 	// Use this for initialization
@@ -75,8 +76,8 @@ public class MapManager : MonoBehaviour {
 			Vector3 newPosition = new Vector3(-1000,-1000,-1000);
 			while (newPosition.x < -900) {
 				Vector2 groundPosition = GroundDot[Random.Range (0, GroundDot.Count)];
-				int x = Random.Range (-2, 2);
-				int y = Random.Range (-2, 2);
+				int x = Random.Range (-RangeDot3, RangeDot3);
+				int y = Random.Range (-RangeDot3, RangeDot3);
 				Vector2 decalage = groundPosition + 3 * new Vector2 (x,y);
 				if (!PersonnalContains (GroundDot, decalage) && PersonnalContains(allDot,decalage)) {
 					newPosition = decalage;

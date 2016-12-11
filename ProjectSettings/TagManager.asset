@@ -40,10 +40,10 @@ TagManager:
   - MapLimit
   - Wall
   - Void
-  - Victory
+  - Bonus
   - Ground
   - Player
-  - 
+  - Victory
   - 
   - 
   - 

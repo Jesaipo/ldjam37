@@ -286,6 +286,7 @@ GameObject:
   - 50: {fileID: 50000010163150900}
   - 114: {fileID: 114000011960388504}
   - 114: {fileID: 114000013845298328}
+  - 114: {fileID: 114000013383472280}
   m_Layer: 10
   m_Name: wall
   m_TagString: Untagged
@@ -321,6 +322,7 @@ GameObject:
   - 50: {fileID: 50000013558030720}
   - 114: {fileID: 114000010284351772}
   - 114: {fileID: 114000014258637700}
+  - 114: {fileID: 114000012318470098}
   m_Layer: 10
   m_Name: wall (1)
   m_TagString: Untagged
@@ -1044,6 +1046,24 @@ MonoBehaviour:
   groundedMask:
     serializedVersion: 2
     m_Bits: 9216
+--- !u!114 &114000012318470098
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014088224418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7de3b8a1ce98bae41b5f743285943f27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteTab:
+  - {fileID: 21300000, guid: 6fe9dbc9b3a832d488730a3b786e02fe, type: 3}
+  - {fileID: 21300000, guid: 9372d45acc1c35846898f1793681fe5f, type: 3}
+  - {fileID: 21300000, guid: f6dc32ac903e2f3469b92f341709e4d8, type: 3}
+  - {fileID: 21300000, guid: 36831f93f4c5dcf4185814cd8411a243, type: 3}
+  - {fileID: 21300000, guid: 77070f410199f4442ae9513bcba81466, type: 3}
+  - {fileID: 21300000, guid: 8c82f63edeb5b4c4abd496ba1277ad28, type: 3}
 --- !u!114 &114000012599908194
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1108,6 +1128,24 @@ MonoBehaviour:
   groundedMask:
     serializedVersion: 2
     m_Bits: 9216
+--- !u!114 &114000013383472280
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013438052682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7de3b8a1ce98bae41b5f743285943f27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteTab:
+  - {fileID: 21300000, guid: 6fe9dbc9b3a832d488730a3b786e02fe, type: 3}
+  - {fileID: 21300000, guid: 9372d45acc1c35846898f1793681fe5f, type: 3}
+  - {fileID: 21300000, guid: f6dc32ac903e2f3469b92f341709e4d8, type: 3}
+  - {fileID: 21300000, guid: 36831f93f4c5dcf4185814cd8411a243, type: 3}
+  - {fileID: 21300000, guid: 77070f410199f4442ae9513bcba81466, type: 3}
+  - {fileID: 21300000, guid: 8c82f63edeb5b4c4abd496ba1277ad28, type: 3}
 --- !u!114 &114000013470366936
 MonoBehaviour:
   m_ObjectHideFlags: 1
