@@ -359,6 +359,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013034508214}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071098, w: -0.70710385}
   m_LocalPosition: {x: 0, y: 12.35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1048,6 +1049,7 @@ MonoBehaviour:
     m_Bits: 9216
   bottomthreshold: -23.5
   finalFall: 0
+  UserAccelerateFall: 0
 --- !u!114 &114000011257677220
 MonoBehaviour:
   m_ObjectHideFlags: 1

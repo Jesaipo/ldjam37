@@ -3901,7 +3901,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 297056456}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 12.35, z: 0}
+  m_LocalPosition: {x: 0, y: 9.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -4559,6 +4559,7 @@ MonoBehaviour:
     m_Bits: 256
   bottomthreshold: -23.5
   finalFall: 0
+  UserAccelerateFall: 0
 --- !u!61 &847413999
 BoxCollider2D:
   m_ObjectHideFlags: 0

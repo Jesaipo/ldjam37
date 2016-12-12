@@ -6,6 +6,7 @@ public class MasterBlock : MonoBehaviour {
 	private Rigidbody2D rb;
 	public float bottomthreshold = -23.5f;
 	public bool finalFall = false;
+	public bool UserAccelerateFall = false;
 	// Use this for initialization
 	void Start () {
 		rb = this.GetComponent<Rigidbody2D> ();
@@ -84,12 +85,16 @@ public class MasterBlock : MonoBehaviour {
 		this.transform.Rotate(0,0,90);
 	}
 	public void Fall(){
-		if(rb)
-		rb.AddForce (new Vector2(0, -500));
+		if (rb) {
+			UserAccelerateFall = true;
+			rb.AddForce (new Vector2 (0, -500));
+		}
 	}
 
 	public void FallRelease(){
-		if(rb)
-		rb.AddForce (new Vector2(0, 500));
+		if (rb && UserAccelerateFall) {
+			UserAccelerateFall = false;
+			rb.AddForce (new Vector2 (0, 500));
+		}
 	}
 }
