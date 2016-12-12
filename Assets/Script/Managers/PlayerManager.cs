@@ -64,18 +64,7 @@ public class PlayerManager : MonoBehaviour {
 			bombeCounter.addBombes (NBBomb);
 		}
 
-		if (dotPath.Count > 0) {
-			Vector2 direction = dotPath [0] - new Vector2(this.transform.position.x,this.transform.position.y) ;
-			direction.Normalize ();
-			this.transform.position = this.transform.position + new Vector3(direction.x,direction.y);
-			if(this.transform.position.x >  dotPath [0].x -0.2f && this.transform.position.x <  dotPath [0].x +0.2f 
-				&& this.transform.position.y >  dotPath [0].y -0.2f && this.transform.position.y <  dotPath [0].y +0.2f)
-				dotPath.RemoveAt (0);
-			Collider2D hit = Physics2D.OverlapCircle (transform.position, 0.05f, GroundLayer);
-			if (hit) {
-				followGO = hit.gameObject;
-			}
-		}
+		MoveIteration ();
 
 
 	}
@@ -168,6 +157,7 @@ public class PlayerManager : MonoBehaviour {
 			List<Vector2> tempdotPath = MapManager.m_instance.getDotBetween (m_instance.transform.position, center);
 			if (tempdotPath.Count > 0) {
 				m_instance.dotPath = tempdotPath;
+				//m_instance.GetComponent<Animator> ().SetBool("Move",true);
 				return;
 			}
 		}
@@ -180,5 +170,26 @@ public class PlayerManager : MonoBehaviour {
 
 	void OnDestroy(){
 		GameStateManager.onChangeStateEvent -= handleChangeGameState;
+	}
+
+	public void MoveIteration(){
+
+		if (dotPath.Count > 0) {
+			Vector2 direction = dotPath [0] - new Vector2 (this.transform.position.x, this.transform.position.y);
+			direction.Normalize ();
+			//m_instance.GetComponent<Animator> ().SetTrigger ("Move");
+			this.transform.position = this.transform.position + 1f * new Vector3 (direction.x, direction.y);
+			if (this.transform.position.x > dotPath [0].x - 0.2f && this.transform.position.x < dotPath [0].x + 0.2f
+			    && this.transform.position.y > dotPath [0].y - 0.2f && this.transform.position.y < dotPath [0].y + 0.2f) {
+				dotPath.RemoveAt (0);
+
+			}
+			Collider2D hit = Physics2D.OverlapCircle (transform.position, 0.05f, GroundLayer);
+			if (hit) {
+				followGO = hit.gameObject;
+		
+			} else {
+			}
+		}
 	}
 }

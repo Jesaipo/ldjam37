@@ -84,10 +84,12 @@ public class MasterBlock : MonoBehaviour {
 		this.transform.Rotate(0,0,90);
 	}
 	public void Fall(){
+		if(rb)
 		rb.AddForce (new Vector2(0, -500));
 	}
 
 	public void FallRelease(){
+		if(rb)
 		rb.AddForce (new Vector2(0, 500));
 	}
 }
